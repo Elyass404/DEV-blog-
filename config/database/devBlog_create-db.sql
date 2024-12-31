@@ -1,0 +1,6 @@
+-- Active: 1733760231294@@127.0.0.1@3306
+CREATE DATABASE dev_blog
+    DEFAULT CHARACTER SET = 'utf8mb4';
+
+USE dev_blog;
+
