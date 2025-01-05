@@ -13,7 +13,7 @@ class CRUD {
         $columns = implode(", ", array_keys($data));
         $values = ":" . implode(", :", array_keys($data));
 
-        $query = "INSERT INTO " . $this->table . " ($columns) VALUES ($values)()";
+        $query = "INSERT INTO " . $this->table . " ($columns) VALUES ($values)";
         $stmt = $this->conn->prepare($query);
 
         foreach ($data as $key => &$val) {
@@ -75,4 +75,3 @@ class CRUD {
         return $stmt->execute();
     }
 }
-

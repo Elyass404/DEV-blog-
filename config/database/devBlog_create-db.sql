@@ -4,14 +4,8 @@ DROP DATABASE IF EXISTS dev_blog;
 -- Create the database
 CREATE DATABASE dev_blog
 
-USE dev_blog;
-
-
-
 -- Connect to the database
-USE devblog_db;
-
-
+USE dev_blog;
 
 -- Create table for users
 CREATE TABLE users (
@@ -21,7 +15,7 @@ CREATE TABLE users (
     password_hash VARCHAR(255) NOT NULL,
     role ENUM('admin', 'author', 'simple_user') NOT NULL,
     gender ENUM('male', 'female') NOT NULL,
-    bio VARCHAR(max),
+    bio TEXT,
     birthdate DATE,
     profile_picture_url VARCHAR(255)
 );

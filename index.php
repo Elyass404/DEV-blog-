@@ -1,7 +1,8 @@
 <?php
 
 require 'config/connection.php';
-// require 'crud_orm.php';
+require 'classes/category.php';
+require 'classes/tag.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -11,6 +12,12 @@ if ($db) {
 } else {
     echo "Connection failed!";
 }
+
+
+
+
+?>
+
 
 
 
