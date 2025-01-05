@@ -1,8 +1,8 @@
 <?php
 
 class CRUD {
-    private $conn;
-    private $table;
+    protected $conn;
+    protected $table;
 
     public function __construct($db, $table) {
         $this->conn = $db;
@@ -75,3 +75,4 @@ class CRUD {
         return $stmt->execute();
     }
 }
+
