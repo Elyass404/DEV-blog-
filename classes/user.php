@@ -1,6 +1,6 @@
 <?php
 
-require 'crud.php';
+require_once 'crud.php';
 
 class User {
     protected $id;  
@@ -17,11 +17,11 @@ class User {
     public function __construct($db, $data = []) {
         $this->crud = new CRUD($db);
 
-        $this->name = $data['name'] ?? null;
+        $this->name = $data['username'] ?? null;
         $this->email = $data['email'] ?? null;
-        $this->password = $data['password'] ?? null;
+        $this->password = $data['password_hash'] ?? null;
         $this->role = $data['role'] ?? $this->role;  // if admin created the user , he can assgin the role else, the role default will be assigned
-        $this->profilePhoto = $data['profilePhoto'] ?? null;
+        $this->profilePhoto = $data['profile_picture_url'] ?? null;
         $this->gender = $data['gender'] ?? null;
         $this->bio = $data['bio'] ?? null;
         $this->birthdate = $data['birthdate'] ?? null;
@@ -31,11 +31,11 @@ class User {
         // Hash the password using Argon2
         $this->password = password_hash($this->password, PASSWORD_ARGON2ID);
         $data = [
-            'name' => $this->name,
+            'username' => $this->name,
             'email' => $this->email,
-            'password' => $this->password,
+            'password_hash' => $this->password,
             'role' => $this->role,
-            'profilePhoto' => $this->profilePhoto,
+            'profile_picture_url' => $this->profilePhoto,
             'gender' => $this->gender,
             'bio' => $this->bio,
             'birthdate' => $this->birthdate
