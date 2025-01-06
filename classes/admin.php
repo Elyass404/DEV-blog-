@@ -1,6 +1,6 @@
 <?php
 
-require 'User.php';
+require 'user.php';
 
 class Admin extends User {
     public function __construct($db, $data = []) {
