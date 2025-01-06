@@ -15,7 +15,7 @@ class User {
     protected $crud;
 
     public function __construct($db, $data = []) {
-        $this->crud = new CRUD($db, 'users');
+        $this->crud = new CRUD($db);
 
         $this->name = $data['name'] ?? null;
         $this->email = $data['email'] ?? null;
@@ -40,7 +40,7 @@ class User {
             'bio' => $this->bio,
             'birthdate' => $this->birthdate
         ];
-        return $this->crud->create($data);
+        return $this->crud->create($data, 'users');
     }
 
     public function login() {
@@ -52,10 +52,11 @@ class User {
     }
 
     public function manageProfile($data, $conditions) {
-        return $this->crud->update($data, $conditions);
+        return $this->crud->update($data, $conditions, 'users');
+    }
+
+    public function read($conditions = []) {
+        return $this->crud->read($conditions, 'users');
     }
 }
-
-
-
 ?>

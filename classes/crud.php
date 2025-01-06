@@ -2,18 +2,15 @@
 
 class CRUD {
     protected $conn;
-    protected $table;
 
-    public function __construct($db, $table) {
+    public function __construct($db) {
         $this->conn = $db;
-        $this->table = $table;
     }
 
-    public function create($data) {
+    public function create($data, $table) {
         $columns = implode(", ", array_keys($data));
         $values = ":" . implode(", :", array_keys($data));
-
-        $query = "INSERT INTO " . $this->table . " ($columns) VALUES ($values)";
+        $query = "INSERT INTO " . $table . " ($columns) VALUES ($values)";
         $stmt = $this->conn->prepare($query);
 
         foreach ($data as $key => &$val) {
@@ -23,14 +20,13 @@ class CRUD {
         return $stmt->execute();
     }
 
-    public function read($conditions = []) {
-        $query = "SELECT * FROM " . $this->table;
+    public function read($conditions = [], $table) {
+        $query = "SELECT * FROM " . $table;
         if (!empty($conditions)) {
             $query .= " WHERE " . implode(" AND ", array_map(function($key) {
                 return "$key = :$key";
             }, array_keys($conditions)));
         }
-
         $stmt = $this->conn->prepare($query);
 
         foreach ($conditions as $key => &$val) {
@@ -41,7 +37,7 @@ class CRUD {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function update($data, $conditions) {
+    public function update($data, $conditions, $table) {
         $set = implode(", ", array_map(function($key) {
             return "$key = :$key";
         }, array_keys($data)));
@@ -50,7 +46,7 @@ class CRUD {
             return "$key = :$key";
         }, array_keys($conditions)));
 
-        $query = "UPDATE " . $this->table . " SET $set WHERE $where";
+        $query = "UPDATE " . $table . " SET $set WHERE $where";
         $stmt = $this->conn->prepare($query);
 
         foreach (array_merge($data, $conditions) as $key => &$val) {
@@ -60,12 +56,13 @@ class CRUD {
         return $stmt->execute();
     }
 
-    public function delete($conditions) {
-        $where = implode(" AND ", array_map(function($key) {
-            return "$key = :$key";
-        }, array_keys($conditions)));
-
-        $query = "DELETE FROM " . $this->table . " WHERE $where";
+    public function delete($conditions, $table) {
+        $query = "DELETE FROM " . $table;
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", array_map(function($key) {
+                return "$key = :$key";
+            }, array_keys($conditions)));
+        }
         $stmt = $this->conn->prepare($query);
 
         foreach ($conditions as $key => &$val) {
@@ -75,3 +72,4 @@ class CRUD {
         return $stmt->execute();
     }
 }
+?>
