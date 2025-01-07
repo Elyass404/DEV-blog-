@@ -6,6 +6,7 @@ class Category {
     private $id;
     private $name;
     private $crud;
+    // private $table = "categories";
 
     public function __construct($db) {
         $this->crud = new CRUD($db);

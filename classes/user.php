@@ -7,7 +7,7 @@ class User {
     protected $name;
     protected $email;
     protected $password;
-    protected $role = 'simpleuser';  // to maek it default when a user created an account
+    protected $role = 'simple_user';  // to make it default when a user created an account
     protected $profilePhoto;
     protected $gender;
     protected $bio;
@@ -58,5 +58,10 @@ class User {
     public function read($conditions = []) {
         return $this->crud->read($conditions, 'users');
     }
+
+    public function deleteUser($conditions) {
+        return $this->crud->delete($conditions, 'users');
+    }
+    
 }
 ?>
