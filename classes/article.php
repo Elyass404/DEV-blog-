@@ -54,5 +54,23 @@ class Article {
         // delete the article in the articles table
         return $this->crud->delete($conditions, 'articles');
     }
+
+    public static function countArticles($db, $conditions = []) {
+        $query = "SELECT COUNT(*) as total FROM articles";
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", array_map(function($key) {
+                return "$key = :$key";
+            }, array_keys($conditions)));
+        }
+        $stmt = $db->prepare($query);
+        foreach ($conditions as $key => &$val) {
+            $stmt->bindParam(":$key", $val);
+        }
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
+    }
+    
+
 }
 ?>

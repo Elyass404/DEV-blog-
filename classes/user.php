@@ -44,11 +44,27 @@ class User {
     }
 
     public function login() {
-        //hta nchof sessions o cookies
+        $query = "SELECT * FROM users WHERE email = :email";
+        $stmt = $this->crud->conn->prepare($query);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($this->password, $user['password'])) {
+            // Start session or set token
+            session_start();
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_role'] = $user['role'];
+            $this->id = $user['id']; 
+            return true;
+        }
+        return false;
     }
 
     public function logout() {
-        // hta nchof sessions o cookies 
+        session_start();
+        session_unset();
+        session_destroy();
     }
 
     public function manageProfile($data, $conditions) {
@@ -62,6 +78,24 @@ class User {
     public function deleteUser($conditions) {
         return $this->crud->delete($conditions, 'users');
     }
+
+    public static function countUsers($db, $conditions = []) {
+        $query = "SELECT COUNT(*) as total FROM users";
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", array_map(function($key) {
+                return "$key = :$key";
+            }, array_keys($conditions)));
+        }
+        $stmt = $db->prepare($query);
+        foreach ($conditions as $key => &$val) {
+            $stmt->bindParam(":$key", $val);
+        }
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
+    }
+    
+    
     
 }
 ?>

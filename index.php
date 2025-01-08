@@ -1,11 +1,13 @@
 <?php
 
 require_once 'config/connection.php';
+// require_once 'classes/admin.php'; 
 require_once 'classes/article.php';
 require_once 'classes/category.php';
 require_once 'classes/crud.php';
 require_once 'classes/tag.php';
 require_once 'classes/user.php'; 
+
 
 
 $database = new Database();
@@ -22,8 +24,8 @@ if ($db) {
 
 // Data to be added
 $userData = [
-    'username' => 'elyass youcode',
-    'email' => 'elyass@example.com',
+    'username' => 'brahim',
+    'email' => 'brahim@example.com',
     'password_hash' => 'hellohello',
     'role' => 'author',
     'profile_picture_url' => null,
@@ -122,26 +124,31 @@ $tagTwo = new Tag($db);
 //---------------------------------------------------------------
 //TESTING THE ARTICLE
 
-$article = new Article($db);
+// $article = new Article($db);
 
-$articleData = [
-'title' => 'fixed',
-'slug'=> 'youbbbfghjkcode',
-'content' => 'Just something in here to fill the the column of the contet',
-'author_id' => 3,
-'category_id' => 6, 
-'created_at' => "2000-02-12",
-'status' => 'pending', 
-'views' => 0
-];
+// $articleData = [
+// 'title' => 'fixed',
+// 'slug'=> 'youbbbfghjkcode',
+// 'content' => 'Just something in here to fill the the column of the contet',
+// 'author_id' => 3,
+// 'category_id' => 6, 
+// 'created_at' => "2000-02-12",
+// 'status' => 'pending', 
+// 'views' => 0
+// ];
 
-$tags = [7, 6, 8]; 
+// $tags = [7, 6, 8]; 
 
-$resultArticle = $article->create($articleData, $tags);
-if ($resultArticle) { echo "Article created successfully!<br>";
-} else {
-    echo "Failed to create article.<br>";
-}
+// $resultArticle = $article->create($articleData, $tags);
+// if ($resultArticle) { echo "Article created successfully!<br>";
+// } else {
+//     echo "Failed to create article.<br>";
+// }
+
+//--------------------------------------------------------
+//TESTING THE STATISCTIC OF EACH ONE OF THE CLASSES 
+$totalUsers = category::countCategories($db); 
+echo "Total Users: " . $totalUsers
 
 
 ?>

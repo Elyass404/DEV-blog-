@@ -27,5 +27,21 @@ class Category {
     public function delete($conditions) {
         return $this->crud->delete($conditions, 'categories');
     }
+
+    public static function countCategories($db, $conditions = []) {
+        $query = "SELECT COUNT(*) as total FROM categories";
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", array_map(function($key) {
+                return "$key = :$key";
+            }, array_keys($conditions)));
+        }
+        $stmt = $db->prepare($query);
+        foreach ($conditions as $key => &$val) {
+            $stmt->bindParam(":$key", $val);
+        }
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
+    }
 }
 ?>

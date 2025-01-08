@@ -27,5 +27,9 @@ class Author extends User {
     public function deleteArticle($conditions) {
         return $this->article->delete($conditions);
     }
+
 }
 ?>
+
+
+
