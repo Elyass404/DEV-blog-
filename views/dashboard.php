@@ -1,10 +1,15 @@
 <?php
+require __DIR__.'/../vendor/autoload.php'; 
 
-// require_once "../classes/admin.php";
-require_once "../config/connection.php";
+use Config\Database;
+use Classes\admin;
 
 $database = new Database();
 $db = $database->getConnection();
+
+
+// require_once "../classes/admin.php";
+// require_once "../config/connection.php";
 
 
 $admin = new admin($db);

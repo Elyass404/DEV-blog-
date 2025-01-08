@@ -1,6 +1,10 @@
 <?php
+namespace Classes;
+require __DIR__.'/../vendor/autoload.php'; 
 
-require 'crud.php';
+use Classes\crud;
+
+// require 'crud.php';
 
 class Article {
     private $crud;

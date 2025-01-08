@@ -1,6 +1,10 @@
 <?php
+namespace Classes;
+require __DIR__.'/../vendor/autoload.php'; 
 
-require_once 'crud.php';
+use Classes\crud;
+
+// require_once 'crud.php';
 
 class User {
     protected $id;  

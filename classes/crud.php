@@ -1,5 +1,11 @@
 <?php
 
+namespace Classes;
+
+use PDO;
+use PDOException;
+
+require __DIR__.'/../vendor/autoload.php'; 
 
 
 class CRUD {

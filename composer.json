@@ -2,7 +2,9 @@
     "name": "hp/dev-blog",
     "autoload": {
         "psr-4": {
-            "DevBlog\\": "classes/"
+            "Config\\": "config/",
+            "Classes\\": "classes/"
+
         }
     },
     "authors": [

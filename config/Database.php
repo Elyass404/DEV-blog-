@@ -1,5 +1,9 @@
 <?php
 
+namespace Config;
+
+use PDO;
+use PDOException;
 use Dotenv\Dotenv;
 require __DIR__.'/../vendor/autoload.php'; // Composer autoloader
 

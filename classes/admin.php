@@ -1,7 +1,13 @@
 <?php
+namespace Classes;
+require __DIR__.'/../vendor/autoload.php'; 
 
-require_once 'user.php';
-require_once 'article.php';
+use Classes\user;
+use Classes\article;
+
+
+// require_once 'user.php';
+// require_once 'article.php';
 
 class Admin extends User {
     private $article;
@@ -16,7 +22,7 @@ class Admin extends User {
         return $this->crud->create($data, 'users');
     }
 
-    public static function readUser($conditions = []) {
+    public function readUser($conditions = []) {
         return $this->crud->read($conditions, 'users');
     }
 
