@@ -50,8 +50,8 @@ class User {
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($this->password, $user['password'])) {
-            // Start session or set token
+        if ($user && password_verify($this->password, $user['password_hash'])) {
+            // Start session 
             session_start();
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_role'] = $user['role'];

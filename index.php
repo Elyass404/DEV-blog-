@@ -10,6 +10,7 @@ require_once 'classes/user.php';
 
 
 
+
 $database = new Database();
 $db = $database->getConnection();
 
@@ -17,6 +18,7 @@ $db = $database->getConnection();
 
 if ($db) {
     echo "WArah khdaaaaaaaaaaaaaammma!<br>";
+    echo $_SESSION['role'];
 } else {
     echo "Connection failed!";
 }

@@ -5,9 +5,6 @@ require_once '../classes/user.php';
 $database = new Database();
 $db = $database->getConnection();
 
-
-session_start();
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $username = $_POST['username'];
