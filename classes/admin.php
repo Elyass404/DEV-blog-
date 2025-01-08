@@ -1,7 +1,7 @@
 <?php
 
-require 'user.php';
-require 'article.php';
+require_once 'user.php';
+require_once 'article.php';
 
 class Admin extends User {
     private $article;
@@ -16,7 +16,7 @@ class Admin extends User {
         return $this->crud->create($data, 'users');
     }
 
-    public function readUser($conditions = []) {
+    public static function readUser($conditions = []) {
         return $this->crud->read($conditions, 'users');
     }
 

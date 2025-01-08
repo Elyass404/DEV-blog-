@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'config/connection.php';
 // require_once 'classes/admin.php'; 
 require_once 'classes/article.php';

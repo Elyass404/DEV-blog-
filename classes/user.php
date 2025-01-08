@@ -53,8 +53,8 @@ class User {
         if ($user && password_verify($this->password, $user['password_hash'])) {
             // Start session 
             session_start();
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_role'] = $user['role'];
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['role'] = $user['role'];
             $this->id = $user['id']; 
             return true;
         }

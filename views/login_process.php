@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $email = $_POST['email'];
     $password = $_POST['password'];
+    
 
     // to crete user object that will help us execute the method log in in  th user class
     $user = new User($db, ['email' => $email, 'password_hash' => $password]);

@@ -28,7 +28,7 @@ class Event
     
     public function __toString() {
                 return "Event Title: $this->title\n
-                        Event Date: $this->date\n 
+                        Event Date: $this->date->format(Y-m-d)\n 
                         Event Remaining seats: $this->availableSeats\n
                         Event Guests: $this->reservations";
             }
@@ -39,6 +39,13 @@ class Event
 class PremiumEvent extends Event {
     protected $price ;
 
+    public function __construct($title, $date, $availableSeats,$reservations,$price){
+
+        parent::construct($title, $date, $availableSeats,$reservations);
+        $this->price = $price;
+    }
+
+
     public function reserveSeat($userId,$price){
         if ($this->availableSeats >0){
                 array_push($reservations,$userId);
@@ -47,14 +54,16 @@ class PremiumEvent extends Event {
         }else{
                 echo "there is no Place left";
             }
+
+            $result = 
         }
 
         public function __toString() {
             return "Event Title: $this->title\n
-                    Event Date: $this->date\n 
+                    Event Date: $this->date->format(Y-m-d)\n 
                     Event Remaining seats: $this->availableSeats\n
                     Event Premium price: $this->price\n
-                    Event Guests: $this->reservations";
+                    Event Guests:" .print_r($this->reservations);
         }
 
         public function __call($name,$args) {

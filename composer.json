@@ -1,4 +1,16 @@
 {
+    "name": "hp/dev-blog",
+    "autoload": {
+        "psr-4": {
+            "DevBlog\\": "classes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ilyass mar",
+            "email": "ilyass.marghine@edu.uiz.ac.ma"
+        }
+    ],
     "require": {
         "vlucas/phpdotenv": "^5.6"
     }
