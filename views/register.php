@@ -67,23 +67,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Core plugin JavaScript-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // JavaScript for password validation
-        document.getElementById('signup-form').addEventListener('submit', function(event) {
-            var password = document.getElementById('password').value;
-            var confirmPassword = document.getElementById('confirm_password').value;
-
-            if (password !== confirmPassword) {
-                alert('Passwords do not match');
-                event.preventDefault();
-            }
-        });
-    </script>
-
 </body>
 
 </html>
