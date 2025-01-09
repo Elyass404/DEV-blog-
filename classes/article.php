@@ -77,6 +77,15 @@ class Article {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
     }
+
+    public static function countTopArticles($db){
+        $query = "SELECT * FROM articles ORDER BY views DESC LIMIT 3";  // Top 3 articles ordered by views
+    $stmt = $db->prepare($query);
+    $stmt->execute();  // Execute the query
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+
+    return $result;  
+    }
     
 
 }

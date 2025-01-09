@@ -25,6 +25,10 @@ $countCategory=Category::countCategories($db);
 $countTag=tag::countTags($db);
 $countUser=user::countUsers($db);
 $countArticle=article::countArticles($db);
+$countTopArticle=article::countTopArticles($db);
+
+
+
 
 
 
@@ -255,12 +259,12 @@ $colors = [
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                     aria-labelledby="dropdownMenuLink2">
                     <div class="dropdown-header">Actions:</div>
-                    <a class="dropdown-item" href="./entities/articles/articles.php">View All Articles</a>
+                    <a class="dropdown-item" href="articles_dash.php">View All Articles</a>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <?php foreach($top_articles as $index => $article): ?>
+            <?php foreach($countTopArticle as $index=> $article): ?>
                 <div class="d-flex align-items-center mb-3">
                     <div class="mr-3">
                         <div class="icon-circle bg-success text-white">
@@ -270,7 +274,7 @@ $colors = [
                     <div class="flex-grow-1">
                         <div class="small text-gray-500">
                             Published <?= date('M d, Y', strtotime($article['created_at'])) ?>
-                            by <?= htmlspecialchars($article['author_name']) ?>
+                            by <?= htmlspecialchars($article['author_id']) ?>
                         </div>
                         <div class="font-weight-bold"><?= htmlspecialchars($article['title']) ?></div>
                         <div class="text-gray-800">
@@ -285,7 +289,7 @@ $colors = [
                         </a>
                     </div>
                 </div>
-                <?php if($index < count($top_articles) - 1): ?>
+                <?php if($index < count($countTopArticle) - 1): ?>
                     <hr>
                 <?php endif; ?>
             <?php endforeach; ?>
