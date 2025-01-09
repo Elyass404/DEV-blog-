@@ -17,8 +17,8 @@ $db = $database->getConnection();
 
 $articleId = $_GET['id'] ;
 
-$resultArticles = article::read($db,["articles.id"=>$articleId]);
-//$resultArticles = article::read($db,["title"=>"fixed"]); // hadi khdma ms title NO
+// $resultArticles = article::read($db,["articles.id"=>$articleId]);
+$resultArticles = article::read($db,["title"=>"fixed"]); // hadi khdma ms title NO
 
 var_dump($resultArticles);
 
@@ -58,12 +58,12 @@ var_dump($resultArticles);
 <nav class="bg-white shadow-md flex justify-between items-center p-4">
     <!-- Back Button (Left) -->
     <button onclick="window.history.back()" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
-        <i class="fas fa-arrow-left text-lg text-gray-600"></i>
+        <i class="fas fa-arrow-left text-lg text-gray-600">Previous page</i>
     </button>
 
     <!-- Sign-Out Button (Right) -->
-    <button onclick="window.location.href='/logout'" class="p-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white focus:outline-none">
-        <i class="fas fa-sign-out-alt text-lg"></i>
+    <button onclick="window.location.href='logout.php'" class="p-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white focus:outline-none">
+        <i class="fas fa-sign-out-alt text-lg">Logout</i>
     </button>
 </nav>
 

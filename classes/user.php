@@ -68,7 +68,7 @@ class User {
         return false;
     }
 
-    public function logout() {
+    public static function logout() {
         session_start();
         session_unset();
         session_destroy();

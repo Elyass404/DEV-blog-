@@ -1,6 +1,12 @@
 <?php
-require_once '../config/connection.php';
-require_once '../classes/user.php';
+session_start();
+require __DIR__.'/../vendor/autoload.php'; 
+
+use Config\Database;
+use Classes\user;
+
+
+
 
 $database = new Database();
 $db = $database->getConnection();
