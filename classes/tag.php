@@ -46,6 +46,17 @@ class Tag {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
     }
+
+    public static function getTags($id,$db){
+        $query = "SELECT tags.name as name FROM tags
+        JOIN article_tags ON tags.id = article_tags.tag_id
+        WHERE article_id = :id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":id",$id);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
     
 }
 ?>

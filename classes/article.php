@@ -33,8 +33,24 @@ class Article {
         return $result;
     }
 
-    public function read($conditions = []) {
-        return $this->crud->read($conditions, 'articles');
+    public function read($db,$conditions = []) {
+        $query = "SELECT *, articles.id , users.username as name  , categories.name as category_name 
+        FROM articles
+        JOIN users ON users.id = articles.author_id
+        JOIN categories ON categories.id = articles.category_id " ;
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", array_map(function($key) {
+                return "$key = :$key";
+            }, array_keys($conditions)));
+        }
+        $stmt = $db->prepare($query);
+
+        foreach ($conditions as $key => &$val) {
+            $stmt->bindParam(":$key", $val);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function update($data, $conditions, $tags = []) {
@@ -86,6 +102,14 @@ class Article {
 
     return $result;  
     }
+
+    public static function countTopAuthors($db){
+        $query = "SELECT username as name , count(*) as total_articles FROM articles JOIN users ON users.id = articles.author_id  GROUP BY name ORDER BY total_articles DESC LIMIT 3";
+        $stmt = $db->prepare($query);
+        $stmt->execute();  
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+        }
     
 
 }

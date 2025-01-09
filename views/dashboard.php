@@ -9,6 +9,7 @@ use Classes\category;
 use Classes\tag;
 use Classes\user;
 
+
 $database = new Database();
 $db = $database->getConnection();
 
@@ -20,21 +21,24 @@ $sessionEmail = $_SESSION['id'];
 $admin = new admin($db);
 $resultAdmin = $admin->readUser(["id"=>$sessionEmail]);
 $article= new article($db);
-$resultArticles = $article->read();
+$resultArticles = $article->read($db);
 $countCategory=Category::countCategories($db);
 $countTag=tag::countTags($db);
 $countUser=user::countUsers($db);
 $countArticle=article::countArticles($db);
 $countTopArticle=article::countTopArticles($db);
+$countTopAuthors = article::countTopAuthors($db) ;
+// $getTags = tag::getTags(12,$db);
+
+
+// var_dump($getTags);
+// foreach($getTags as $tag) {
+//     print_r($tag);
+// }
 
 
 
-
-
-
-
-
-var_dump($resultArticles);
+// var_dump($resultArticles);
 
 // Prepare data for the chart
 $categories = [];
@@ -213,6 +217,7 @@ $colors = [
                 </div>
             </div>
         </div>
+        <?php foreach($countTopAuthors as $index => $author): ?>
         <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
                     <div class="mr-3">
@@ -227,7 +232,7 @@ $colors = [
                         </div>
                     </div>
                     <div class="flex-grow-1">
-                        <div class="small text-gray-500">Author #4</div>
+                        <div class="small text-gray-500"><?= $author['name'] ?></div>
                         <div class="font-weight-bold"></div>
                         <div class="text-gray-800">
                             80 articles
@@ -243,7 +248,10 @@ $colors = [
                     </div>
                 </div>
                 50
+                <?php if($index > count($countTopAuthors)-1): ?>
                     <hr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
         </div>
     </div>
 
@@ -367,7 +375,9 @@ $colors = [
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    <?php foreach($resultArticles as $article): ?>
+                                    <?php
+                                    //var_dump($resultArticles);
+                                     foreach($resultArticles as $article): ?>
                                         <tr>
                                             <td>
                                                 <img src="<?= htmlspecialchars($article['featured_image']) ?>" 
@@ -376,17 +386,18 @@ $colors = [
                                                     style="width: 50px; height: 50px; object-fit: cover;">
                                                 <?= htmlspecialchars($article['title']) ?>
                                             </td>
-                                            <td><?= htmlspecialchars($article['title']) ?></td>
-                                            <td><?= htmlspecialchars($article['id']) ?></td>
+                                            <td><?= htmlspecialchars($article['name']) ?></td>
+                                            <td><?= htmlspecialchars($article['category_name']) ?></td>
                                             <td>
                                                 <?php
-                                                if ($article['tags']) {
-                                                    $tags = explode(',', $article['tags']);
-                                                    foreach($tags as $tag) {
-                                                        echo '<span class="badge badge-primary mr-1">' . htmlspecialchars($tag) . '</span>';
+                                                $getTags = tag::getTags($article['id'],$db);
+                                                
+                                                
+                                                    foreach($getTags as $tag) {
+                                                        
+                                                        echo '<span class="badge badge-primary mr-1">' .htmlspecialchars($tag["name"]) . '</span>';
                                                     }
-                                                }
-                                                ?>
+                                                    ?>
                                             </td>
                                             <td data-order="<?= $article['views'] ?>">
                                                 <?= number_format($article['views']) ?>

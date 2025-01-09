@@ -28,12 +28,7 @@ class Author extends User {
         return $this->article->delete($conditions);
     }
 
-    public function topAuthors($conditions) {
-        $query = "SELECT author_id count(*) as top_authors FROM articles GROUP BY  ORDER BY views DESC LIMIT 3";  // Top 3 articles ordered by views
-    $stmt = $db->prepare($query);
-    $stmt->execute();  // Execute the query
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    
 
 }
 ?>
