@@ -1,6 +1,9 @@
 <?php
-
-require_once 'crud.php';
+namespace Classes;
+use Classes\crud;
+use PDO;
+use PDOException;
+// require_once 'crud.php';
 
 class Category {
     private $id;

@@ -1,4 +1,8 @@
 <?php
+namespace Classes;
+use Classes\crud;
+use PDO;
+use PDOException;
 
 require_once 'crud.php'; 
 

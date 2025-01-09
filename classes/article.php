@@ -1,8 +1,11 @@
 <?php
 namespace Classes;
+use Classes\crud;
+use PDO;
+use PDOException;
 require __DIR__.'/../vendor/autoload.php'; 
 
-use Classes\crud;
+
 
 // require 'crud.php';
 

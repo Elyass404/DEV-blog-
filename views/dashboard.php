@@ -1,8 +1,13 @@
 <?php
+session_start();
 require __DIR__.'/../vendor/autoload.php'; 
 
 use Config\Database;
 use Classes\admin;
+use Classes\article;
+use Classes\category;
+use Classes\tag;
+use Classes\user;
 
 $database = new Database();
 $db = $database->getConnection();
@@ -11,11 +16,21 @@ $db = $database->getConnection();
 // require_once "../classes/admin.php";
 // require_once "../config/connection.php";
 
-
+$sessionEmail = $_SESSION['id'];
 $admin = new admin($db);
-$result = $admin->readUser();
+$resultAdmin = $admin->readUser(["id"=>$sessionEmail]);
+$article= new article($db);
+$resultArticles = $article->read();
+$countCategory=Category::countCategories($db);
+$countTag=tag::countTags($db);
+$countUser=user::countUsers($db);
+$countArticle=article::countArticles($db);
 
-var_dump($result);
+
+
+
+
+var_dump($resultArticles);
 
 // Prepare data for the chart
 $categories = [];
@@ -107,7 +122,7 @@ $colors = [
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Articles</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">78</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $countArticle?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-newspaper fa-2x text-gray-300"></i>
@@ -125,7 +140,7 @@ $colors = [
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Users</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">80</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $countUser?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -143,7 +158,7 @@ $colors = [
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tags
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">20</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $countTag ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-tags fa-2x text-gray-300"></i>
@@ -160,7 +175,7 @@ $colors = [
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Categories</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">131</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $countCategory ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-folder fa-2x text-gray-300"></i>
@@ -348,7 +363,7 @@ $colors = [
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    <?php foreach($articles as $article): ?>
+                                    <?php foreach($resultArticles as $article): ?>
                                         <tr>
                                             <td>
                                                 <img src="<?= htmlspecialchars($article['featured_image']) ?>" 
@@ -357,8 +372,8 @@ $colors = [
                                                     style="width: 50px; height: 50px; object-fit: cover;">
                                                 <?= htmlspecialchars($article['title']) ?>
                                             </td>
-                                            <td><?= htmlspecialchars($article['author_name']) ?></td>
-                                            <td><?= htmlspecialchars($article['category_name']) ?></td>
+                                            <td><?= htmlspecialchars($article['title']) ?></td>
+                                            <td><?= htmlspecialchars($article['id']) ?></td>
                                             <td>
                                                 <?php
                                                 if ($article['tags']) {
