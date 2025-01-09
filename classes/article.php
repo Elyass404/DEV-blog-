@@ -33,9 +33,9 @@ class Article {
         return $result;
     }
 
-    public function read($db,$conditions = []) {
-        $query = "SELECT *, articles.id , users.username as name  , categories.name as category_name 
-        FROM articles
+    public static function read($db,$conditions = []) {
+        $query = "SELECT *, articles.id  , users.username as name  , categories.name as category_name 
+        FROM articles 
         JOIN users ON users.id = articles.author_id
         JOIN categories ON categories.id = articles.category_id " ;
         if (!empty($conditions)) {
@@ -110,7 +110,8 @@ class Article {
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
         }
-    
+
+
 
 }
 ?>

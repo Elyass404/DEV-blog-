@@ -28,6 +28,7 @@ $countUser=user::countUsers($db);
 $countArticle=article::countArticles($db);
 $countTopArticle=article::countTopArticles($db);
 $countTopAuthors = article::countTopAuthors($db) ;
+$category_stats = category::getCategoryStats($db);
 // $getTags = tag::getTags(12,$db);
 
 
@@ -436,7 +437,7 @@ $colors = [
             </div>
             <!-- End of Main Content -->
 
-            <?php include 'components/footer.php'; ?>
+            <?php include '../public/components/footer.php'; ?>
 
         </div>
         <!-- End of Content Wrapper -->
@@ -483,8 +484,8 @@ $colors = [
     <script src="../public/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="../public/js/demo/chart-area-demo.js"></script>
-    <script src="../public/js/demo/chart-pie-demo.js"></script>
+    <script src="../public/assets/js/chart-area-demo.js"></script>
+    <script src="../public/assets/js/chart-pie-demo.js"></script>
         <!-- Initialize the pie chart -->
         <script>
     // Set new default font family and font color to mimic Bootstrap's default styling

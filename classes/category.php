@@ -46,5 +46,13 @@ class Category {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
     }
+
+    public static function getCategoryStats($db){
+        $sql = "SELECT COUNT(*) as article_count, categories.name as category_name FROM articles JOIN categories ON articles.category_id = categories.id GROUP BY category_name;";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchALL(\PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 ?>
